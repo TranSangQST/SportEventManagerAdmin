@@ -12,14 +12,11 @@
 
                     </div>
                     <div class="col-lg-4 pb-2 text-center">
-                        <a href="/tournament/{{tournament.MaGD}}/resultPage" class="btn btn-info btn-link">
+                        <a href="/tournament/{{tournament.MaGD}}/resultPage" class="btn btn-info btn-link" style="text-decoration: none">
                             <i class="far fa-calendar-alt"></i><span>Kết quả</span>
                         </a>
-                        <a href="/tournament/{{tournament.MaGD}}/schedulePage" class="btn btn-info btn-link">
+                        <a href="/tournament/{{tournament.MaGD}}/schedulePage" class="btn btn-info btn-link" style="text-decoration: none">
                             <i class="far fa-calendar-alt"></i><span>Lịch thi đấu</span>
-                        </a>
-                        <a href="#deleteAllModal" class="btn btn-danger btn-delete" data-toggle="modal">
-                            <i class="fas fa-minus-circle"></i><span>Xóa tất cả</span>
                         </a>
                     </div>
                 </div>
@@ -43,7 +40,7 @@
                         <th>Mã người đăng ký</th>
                         <th>Mã giải đấu</th>
                         <th>Mã bảng đấu</th>
-                        <th>Sửa/Xóa</th>
+                        <th>Xóa</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,7 +54,7 @@
 <!--                            </td>-->
 
                             <td>{{MaDB}}</td>
-                            <td>{{TenDB}}</td>
+                            <td><a href="/team/{{MaDB}}">{{TenDB}}</a></td>
                             <td>{{SoThanhVien}}</td>
                             <td>{{MauAo}}</td>
                             <td>{{Diem}}</td>
@@ -84,6 +81,29 @@
                 {{{createPagination pagination paginationClass="pagination"}}}
             </nav>
         </footer>
+    </div>
+</div>
+
+<!-- Delete Modal HTML -->
+<div id="deleteModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="get" action="/team/delete">
+                <input type="hidden" name="deleteID" id="deleteID">
+                <div class="modal-header">
+                    <h4 class="modal-title">Xóa đội</h4>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn chắc chắn xóa đội?</p>
+                    <p class="text-warning"><small>Hành động này sẽ không được phục hồi!</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+                    <input type="submit" class="btn btn-danger" value="Xóa">
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

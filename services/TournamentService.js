@@ -2,10 +2,14 @@ const {models} = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-const TeamService = require('./TeamService')
+// const TeamService = require('./TeamService')
 const MatchService = require('../services/MatchService');
 const StateService = require('../services/StateService');
+const TournamentService = require('../services/TournamentService');
 const TeamServices = require("../services/TeamService");
+
+
+
 
 
 
@@ -155,8 +159,9 @@ exports.deleteTournamentByIds = async(tournamentIds) => {
     try{
 
         await MatchService.deleteAllMatchByTournamentIds(tournamentIds);
-        await TeamService.deleteAllTeamByTournamentId(tournamentIds);
+        await TeamServices.deleteAllTeamByTournamentId(tournamentIds);
         await StateService.deleteAllStateByTournamentId(tournamentIds);
+
         const tournament = await this.findTournamentByIds(tournamentIds);
         tournament.destroy({
             where: {
@@ -184,6 +189,14 @@ exports.deleteTournamentByIds = async(tournamentIds) => {
 exports.scheduleByTournamentId = async (tournamentId) => {
 
     try{
+
+        const tournament = await TournamentService.findTournamentById(tournamentId, true);
+        const deadline =  new Date(tournament.HanCuoiDangKy);
+        const now = new Date();
+
+        if (now.getTime() < deadline.getTime()) {
+            return {success: false};
+        }
 
         //Kiểm tra xem giải đấu có độ tham gia hay chưa
         const allTournamenTeams = await MatchService.findAndCountAllTeamsByTournamentId(tournamentId, true);

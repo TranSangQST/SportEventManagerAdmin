@@ -41,8 +41,8 @@ class TournamentController {
 
 
         const teams = await TeamService.findAllTeamsByTournamentId(id, true);
-        const tournament = await TournamentService.findTournamentById(id, true);
 
+        const tournament = await TournamentService.findTournamentById(id, true);
         const deadline =  new Date(tournament.HanCuoiDangKy);
         const now = new Date();
         let isDeadlineTournament = undefined;
